@@ -1,2 +1,20 @@
 pip install django
+
+配置数据库
 pip install pymysql
+myblog-settings:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'myblog',
+            'USER': "root",
+            'PASSWORD': 'chenhui',
+            'HOST': "localhost",
+            'PORT': '3306',
+        }
+    }
+myblog-__init--:
+    import pymysql
+
+
+    pymysql.install_as_MySQLdb()
