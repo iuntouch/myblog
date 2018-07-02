@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User
+from .models import User, Blog
 
 
 # # Register your models here.
@@ -54,4 +54,51 @@ class UserAdmin(admin.ModelAdmin):
         ('个人信息', {'fields': ['gender', 'password', 'email', 'birthday', 'contend']}),
     ]
 
+
+@admin.register(Blog)
+class BlogAdmin(admin.ModelAdmin):
+    def title(self):
+        return self.title
+    title.short_description = "标题"
+
+    def isDelete(self):
+        if self.isDelete:
+            return "是"
+        else:
+            return "否"
+    isDelete.short_description = "是否已删除"
+
+    def postDate(self):
+        return self.postDate
+    postDate.short_description = "发布日期"
+
+    def slug(self):
+        return self.slug
+    slug.short_description = "链接"
+
+    def summary(self):
+        return self.summary
+    summary.short_description = "摘要"
+
+    def body(self):
+        return self.body
+    body.short_description = "内容"
+
+    def author(self):
+        return self.author
+    author.short_description = "作者"
+
+    def pk(self):
+        return self.pk
+    pk.short_description = "序号"
+
+    list_display = [pk, title, author, postDate, slug, summary, body, isDelete]
+    list_filter = ['title']
+    search_fields = ['title', 'author']
+    list_per_page = 5
+
+    fieldsets = [
+        ("摘要", {'fields': ['title', 'author', 'postDate', 'slug', 'summary']}),
+        ('内容', {'fields': ['body']}),
+    ]
 
