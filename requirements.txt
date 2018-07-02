@@ -18,3 +18,19 @@ myblog-__init--:
 
 
     pymysql.install_as_MySQLdb()
+
+添加模型
+
+数据库迁移
+
+配置admin
+创建超级用户
+iuntouch
+huch7280@qq.com
+asjk4589zn13
+
+修改settings汉化
+
+注册模型
+
+插入数据
