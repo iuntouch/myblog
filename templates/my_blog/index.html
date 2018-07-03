@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-1111
-</body>
-</html>
+{% extends 'my_blog/base.html' %}
+{% load static from staticfiles %}
+{% block title %}登陆{% endblock title %}
+{% block style %}
+    <style type="text/css">
+    #form{
+        width: 800px;
+        height: 500px;
+        margin: 0 auto;
+        text-align: center;
+        vertical-align: ;
+        {#position: relative;#}
+        }
+        </style>
+{% endblock style %}
+
+{% block script %}
+<script>
+    $(document).ready(function () {
+        $("#submit").bind("click", function (event) {
+            var myurl = '/' + $("#username").val() + '/'
+            var Form = document.getElementById("form")
+            Form.setAttribute("action", myurl)
+        })
+        $("#register").bind("click", function (event) {
+            var myurl = '/register/'
+            var Form = document.getElementById("form")
+            Form.setAttribute("action", myurl)
+        })
+    })
+</script>
+{% endblock script %}
+
+{% block main %}
+    <form id="form" action="" method="post">
+        {%  csrf_token %}
+        <span>密码或用户名错误，请重新输入</span></br>
+        <input id="username" type="text" name="username" placeholder="请输入你的用户名" value=""></br>
+        <input type="password" name="password" value=""></br>
+        <input id="submit" type="submit" value="登陆">
+        <input id="register" type="submit" value="注册">
+    </form>
+{% endblock main %}
