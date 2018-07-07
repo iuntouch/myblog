@@ -1,0 +1,27 @@
+{% extends 'my_blog/base.html' %}
+{% load static from staticfiles %}
+{% block title %}新博客{% endblock title %}
+{% block style %}
+
+{% endblock style %}
+{% block script %}
+<script type="text/javascript" src="/static/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+    tinyMCE.init({
+        'mode': 'textareas',
+        'theme': 'advanced',
+        'width':800,
+        'height':900,
+    })
+</script>
+{% endblock script %}
+{% block main %}
+    <form id="form" action="" method="post">
+    {% csrf_token %}
+        标题：{{ form.title }}<br/>
+        作者：{{ form.author }}<br/>
+        摘要：{{ form.summary }}<br/>
+        文章：<textarea name="body"></textarea> <br/>
+        <input id="submit" type="submit" value="保存" />
+    </form>
+{% endblock main %}

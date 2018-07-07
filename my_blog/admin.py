@@ -72,10 +72,6 @@ class BlogAdmin(admin.ModelAdmin):
         return self.postDate
     postDate.short_description = "发布日期"
 
-    def slug(self):
-        return self.slug
-    slug.short_description = "链接"
-
     def summary(self):
         return self.summary
     summary.short_description = "摘要"
@@ -92,13 +88,13 @@ class BlogAdmin(admin.ModelAdmin):
         return self.pk
     pk.short_description = "序号"
 
-    list_display = [pk, title, author, postDate, slug, summary, body, isDelete]
+    list_display = [pk, title, author, postDate, summary, body, isDelete]
     list_filter = ['title']
     search_fields = ['title', 'author']
     list_per_page = 5
 
     fieldsets = [
-        ("摘要", {'fields': ['title', 'author', 'postDate', 'slug', 'summary']}),
+        ("摘要", {'fields': ['title', 'author', 'postDate', 'summary']}),
         ('内容', {'fields': ['body']}),
     ]
 

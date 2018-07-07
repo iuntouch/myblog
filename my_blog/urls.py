@@ -12,9 +12,11 @@ from . import views
 
 
 urlpatterns = [
-    re_path(r'^$', views.index),
+    re_path(r'^$', views.login),
+    re_path(r'^index/$', views.index),
     re_path(r'^register/$', views.register),
+    re_path(r'^(.*?)/newblog/$', views.newBlog),
     re_path(r'^(.*?)/$', views.blog),
-    # re_path(r'^register/$', views.register),
+
 ]
 

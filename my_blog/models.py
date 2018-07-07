@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import permalink
+from tinymce.models import HTMLField
 
 
 # Create your models here.
@@ -39,11 +39,9 @@ class BlogManager(models.Manager):
     def get_queryset(self):
         return super(BlogManager, self).get_queryset().filter(isDelete=False)
 
-    def createBlog(self, title, postDate, slug, summary, body, author, isDelete=False):
+    def createBlog(self, title, summary, body, author, isDelete=False):
         blog = self.model()
         blog.title = title
-        blog.postDate = postDate
-        blog.slug = slug
         blog.summary = summary
         blog.body = body
         blog.author = author
@@ -53,10 +51,9 @@ class BlogManager(models.Manager):
 class Blog(models.Model):
     blogobj = BlogManager()
     title = models.CharField(max_length=100)
-    postDate = models.DateTimeField()
-    slug = models.SlugField(max_length=100)
+    postDate = models.DateTimeField(auto_now_add=True)
     summary = models.CharField(max_length=150)
-    body = models.TextField()
+    body = HTMLField()
     isDelete = models.BooleanField(default=False)
     author = models.ForeignKey("User", on_delete=models.CASCADE)
 
@@ -66,10 +63,4 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
-
-    @permalink
-    def get_absolute_url(self):
-        return ('view_blog_post', None, {'slug' : self.slug})
-
-
 

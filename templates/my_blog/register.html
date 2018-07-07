@@ -1,17 +1,59 @@
 {% extends 'my_blog/base.html' %}
 {% load static from staticfiles %}
 {% block title %}注册{% endblock title %}
+{% block style %}
+    <style type="text/css">
+        span {
+            color: red;
+        }
+        #tips {
+            display: none;
+        }
+    </style>
+{% endblock style %}
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#id_reptpassword").bind("blur", function (event) {
+            if ($("#id_reptpassword").val() != $("#id_password").val()) {
+                $("#error").css("display", "inline")
+            }
+            else {
+                $("#error").css("display", "none")
+            }
+        })
+        $("#id_password").bind("blur", function (event) {
+            if ($("#id_reptpassword").val() != $("#id_password").val()) {
+                $("#error").css("display", "inline")
+            }
+            else {
+                $("#error").css("display", "none")
+            }
+        })
+        $("#id_birthday").bind("focus", function (event) {
+                $("#tips").css("display", "inline")
+        })
+        $("#id_birthday").bind("blur", function (event) {
+                $("#tips").css("display", "none")
+        })
+    })
+</script>
+{% endblock script %}
 {% block main %}
-    <form action="success/" method="post">
+    <form id="form" action="" method="post">
     {% csrf_token %}
-        昵称：</label> <input type="text" name="username" value="" /></br>
-        性别：<input type="radio" name="gender" value="1" />男
-                    <input type="radio" name="gender" value="0" />女</br>
-        年龄：<input type="text" name="age" value="" /></br>
-        简介：<input type="text" name="contend" value="" /></br>
-        爱好：<input type="checkbox" name="hobby" value="money" />金钱
-                    <input type="checkbox" name="hobby" value="power" />权力
-                    <input type="checkbox" name="hobby" value="beauty" />美人</br>
-        <input type="submit" value="注册" />
+            昵称：{{ form.username }}<span>{{ msg1 }}</span><br/>
+            性别：{{ form.gender }}<br/>
+            邮箱：{{ form.email }}<br/>
+            密码：{{ form.password }}<br/>
+            确认密码：{{ form.reptpassword }}
+            <span>{{ msg2 }}</span><br/>
+            生日：{{ form.birthday }}
+            <span id="tips">形式为(年/月/日，如：1993/08/27)</span><br/>
+            简介：{{ form.contend }}<br/>
+        <input id="submit" type="submit" value="注册" />
     </form>
+    <div>
+        <a href="/">已有账号登录</a>
+    </div>
 {% endblock main %}
